@@ -2,7 +2,7 @@
 {
     public class Nodo
     {
-        public object informacion;
+        public Persona informacion;
         public Nodo NodoSig;
         public Nodo NodoAnt;
         public Nodo()
@@ -11,21 +11,17 @@
             NodoAnt = null;
             informacion = null;
         }
-        public Nodo(object Informacion)
+        public Nodo(Persona Informacion)
         {
             informacion = Informacion;
             NodoAnt = null;
             NodoSig = null;
         }
-        public Nodo(object Informacio, Nodo Ante, Nodo Sig)
+        public Nodo(Persona Informacio, Nodo Ante, Nodo Sig)
         {
             informacion = Informacio;
             NodoAnt = Ante;
             NodoSig = Sig;
-        }
-        public object getInformacion()
-        {
-            return informacion;
         }
     }
 }

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Joselyn\\Universidad\\ListasDoblementeEnlazadas\\ListasDoblementeEnlazadas.csproj": {}
+    "D:\\ESCRITORIO\\ListasDobles\\ListasDoblementeEnlazadas.csproj": {}
   },
   "projects": {
-    "C:\\Joselyn\\Universidad\\ListasDoblementeEnlazadas\\ListasDoblementeEnlazadas.csproj": {
+    "D:\\ESCRITORIO\\ListasDobles\\ListasDoblementeEnlazadas.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Joselyn\\Universidad\\ListasDoblementeEnlazadas\\ListasDoblementeEnlazadas.csproj",
+        "projectUniqueName": "D:\\ESCRITORIO\\ListasDobles\\ListasDoblementeEnlazadas.csproj",
         "projectName": "ListasDoblementeEnlazadas",
-        "projectPath": "C:\\Joselyn\\Universidad\\ListasDoblementeEnlazadas\\ListasDoblementeEnlazadas.csproj",
-        "packagesPath": "C:\\Users\\jdeleon\\.nuget\\packages\\",
-        "outputPath": "C:\\Joselyn\\Universidad\\ListasDoblementeEnlazadas\\obj\\",
+        "projectPath": "D:\\ESCRITORIO\\ListasDobles\\ListasDoblementeEnlazadas.csproj",
+        "packagesPath": "C:\\Users\\cdoni\\.nuget\\packages\\",
+        "outputPath": "D:\\ESCRITORIO\\ListasDobles\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\jdeleon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\cdoni\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -68,7 +68,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

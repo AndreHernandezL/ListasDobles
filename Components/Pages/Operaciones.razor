@@ -1,0 +1,306 @@
+﻿@using ListasDoblementeEnlazadas.Components.Services;
+@page "/"
+@rendermode InteractiveServer
+
+<div class="container-lg">
+    <div class="row">
+        <div class="col-12">
+            <div class="mt-3 mb-3 alert alert-secondary" role="alert">
+                <strong>@(resultadoLista)</strong>
+            </div>
+            <hr />
+            <h5 class="text-center">Datos de la persona</h5>
+            <div class="input-group mb-3">
+                <span class="input-group-text">ID</span>
+                <input type="number" name="id" class="form-control" @bind-value="@(id)" placeholder="ID" />
+                <span class="input-group-text">Nombre</span>
+                <input type="text" name="name" class="form-control w-75" @bind-value="@(nombre)" placeholder="Nombre de la Persona" />
+            </div>
+            <hr />
+        </div>
+        <div class="col-12 mb-5">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-AddInicioFin-tab" data-bs-toggle="tab" data-bs-target="#nav-AddInicioFin" type="button" role="tab" aria-controls="nav-AddInicioFin" aria-selected="true">Agregar al Inicio/Fin</button>
+                    <button class="nav-link" id="nav-AddPosicion-tab" data-bs-toggle="tab" data-bs-target="#nav-AddPosicion" type="button" role="tab" aria-controls="nav-AddPosicion" aria-selected="false">Agregar por Posicion</button>
+                    <button class="nav-link" id="nav-AddDato-tab" data-bs-toggle="tab" data-bs-target="#nav-AddDato" type="button" role="tab" aria-controls="nav-AddDato" aria-selected="false">Agregar por Dato</button>
+                    <button class="nav-link" id="nav-RmInicioFin-tab" data-bs-toggle="tab" data-bs-target="#nav-RmInicioFin" type="button" role="tab" aria-controls="nav-RmInicioFin" aria-selected="false">Eliminar al Inicio/Fin</button>
+                    <button class="nav-link" id="nav-RmPosicion-tab" data-bs-toggle="tab" data-bs-target="#nav-RmPosicion" type="button" role="tab" aria-controls="nav-RmPosicion" aria-selected="false">Eliminar por Posicion</button>
+                    <button class="nav-link" id="nav-RmDato-tab" data-bs-toggle="tab" data-bs-target="#nav-RmDato" type="button" role="tab" aria-controls="nav-RmDato" aria-selected="false">Eliminar por Dato</button>
+                    <button class="nav-link" id="nav-Busqueda-tab" data-bs-toggle="tab" data-bs-target="#nav-Busqueda" type="button" role="tab" aria-controls="nav-Busqueda" aria-selected="false">Operaciones</button>
+                </div>
+            </nav>
+            <div class="tab-content d-flex justify-content-center align-items-center mt-3" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-AddInicioFin" role="tabpanel" aria-labelledby="nav-AddInicioFin-tab" tabindex="0">
+                    <button type="button" class="mt-2 btn btn-primary" @onclick="AgregarInicio">Agregar la Inicio</button>
+                    <button type="button" class="mt-2 btn btn-secondary" @onclick="AgregarFinal">Agregar la Final</button>
+                </div>
+                <div class="tab-pane fade" id="nav-AddPosicion" role="tabpanel" aria-labelledby="nav-AddPosicion-tab" tabindex="0">
+                    <h5>Insersión antes o despues de una posición</h5>
+                    <div class="input-group mt-2">
+                        <span class="input-group-text">Posición</span>
+                        <input type="number" name="posicion" class="form-control" @bind-value="@(posicion)" placeholder="Posición" />
+                        <button type="button" class="btn btn-secondary" @onclick="AgregarDespuesDPosicion">Agregar Despues</button>
+                        <button type="button" class="btn btn-danger" @onclick="AgregarAntesDPosicion">Agregar Antes</button>
+                        <button type="button" class="btn btn-info" @onclick="PosicionEspecifica">Agregar En</button>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-AddDato" role="tabpanel" aria-labelledby="nav-AddDato-tab" tabindex="0">
+                    <h5 class="text-center">Insersión antes o despues de un dato</h5>
+                    <div class="input-group mt-2">
+                        <span class="input-group-text">ID Persona</span>
+                        <input type="number" name="id" class="form-control" @bind-value="@(idBusqueda)" placeholder="00" />
+                        <button type="button" class="btn btn-secondary" @onclick="AgregarDespuesDato">Agregar Despues</button>
+                        <button type="button" class="btn btn-danger" @onclick="AgregarAntesDato">Agregar Antes</button>
+                        <button type="button" class="btn btn-info" @onclick="DatoEspecifico">Agregar En</button>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-RmInicioFin" role="tabpanel" aria-labelledby="nav-RmInicioFin-tab" tabindex="0">
+                    <button type="button" class="mt-2 btn btn-danger" @onclick="eliminarInicio">Eliminar al Inicio</button>
+                    <button type="button" class="mt-2 btn btn-danger" @onclick="eliminarFinal">Eliminar al Final</button>
+                </div>
+                <div class="tab-pane fade" id="nav-RmPosicion" role="tabpanel" aria-labelledby="nav-RmPosicion-tab" tabindex="0">
+                    <h5 class="text-center">Eliminacin antes o despues de una posición</h5>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">Posición</span>
+                        <input type="number" name="posicion" class="form-control" @bind-value="@(posicion)" placeholder="" />
+                        <button type="button" class="btn btn-secondary" @onclick="eliminarDespuesPosicion">Eliminar Despues</button>
+                        <button type="button" class="btn btn-danger" @onclick="eliminarAntesPosicion">Eliminar Antes</button>
+                        <button type="button" class="btn btn-info" @onclick="eliminarPosicion">Eliminar Posicion</button>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-RmDato" role="tabpanel" aria-labelledby="nav-RmDato-tab" tabindex="0">
+                    <h5 class="text-center">Eliminar antes o despues de un dato</h5>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">ID</span>
+                        <input type="number" name="idBusqueda" class="form-control" @bind-value="@(idBusqueda)" placeholder="ID Persona" />
+                        <button type="button" class="btn btn-secondary" @onclick="eliminarDespuesDato">Eliminar Despues</button>
+                        <button type="button" class="btn btn-danger" @onclick="eliminarAntesDato">Eliminar Antes</button>
+                        <button type="button" class="btn btn-info" @onclick="eliminarDato">Eliminar Dato</button>
+                    </div>
+                </div>
+                <div class="tab-pane fade " id="nav-Busqueda" role="tabpanel" aria-labelledby="nav-Busqueda-tab" tabindex="0">
+                    <div class="d-flex justify-content-center align-items-center" style="gap: 25px;">
+                        <div class="input-group">
+                            <input type="number" name="name" class="form-control" @bind-value="@(idBusqueda)" placeholder="ID a buscar" />
+                            <button type="button" class="btn btn-info" @onclick="Busqueda">Buscar</button>
+                        </div>
+                        <button type="button" class="btn btn-info" @onclick="ordenamiento">Ordenar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-warning text-center">
+                    <strong>Elmentos de la Lista</strong>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach (var item in resultado)
+                        {
+                            <li class="list-group-item">@(item)</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    int id = 0;
+    int idBusqueda = 0;
+    string nombre = "";
+    string elemento = "";
+    string[] resultado = new string[0];
+    string resultadoLista = "";
+    int posicion = 0;
+    ListasDobles lista = new ListasDobles();
+
+    void AgregarInicio()
+    {
+        if (!nombre.Equals("") && id != 0)
+        {
+            resultadoLista = lista.AgregarAlinicio(new Persona(id, nombre));
+            resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+            limpiar();
+
+        }
+        else
+        {
+            resultadoLista = "Llene correctamante los campos requeridos";
+        }
+
+    }
+
+    void AgregarFinal()
+    {
+        if (!nombre.Equals("") && id != 0)
+        {
+            resultadoLista = lista.AgregarAlFinal(new Persona(id, nombre));
+            resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+            limpiar();
+        }
+        else
+        {
+            resultadoLista = "Llene correctamante los campos requeridos";
+        }
+
+    }
+
+    void AgregarAntesDPosicion()
+    {
+        if (posicion != 0 && !nombre.Equals("") && id != 0)
+        {
+            resultadoLista = lista.AregarAntesPosX(new Persona(id, nombre), posicion);
+            resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+            limpiar();
+        }
+        else
+        {
+            resultadoLista = "Llene correctamante los campos requeridos";
+        }
+    }
+
+    void AgregarDespuesDPosicion()
+    {
+        if (posicion > 0 && !nombre.Equals("") && id != 0)
+        {
+            resultadoLista = lista.AregarDespuesPosX(new Persona(id, nombre), posicion);
+            resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+            limpiar();
+        }
+        else
+        {
+            resultadoLista = "Llene correctamante los campos requeridos";
+        }
+    }
+
+    void PosicionEspecifica()
+    {
+        if (posicion > 0 && !nombre.Equals("") && id != 0)
+        {
+            resultadoLista = lista.AregarEnPosX(new Persona(id,nombre), posicion);
+            resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+            limpiar();
+        }
+        else
+        {
+            resultadoLista = "Llene correctamante los campos requeridos";
+        }
+    }
+    void AgregarAntesDato()
+    {
+        if (!nombre.Equals("") && id != 0)
+        {
+            resultadoLista = lista.AgregarAntesDatox(new Persona(id, nombre), idBusqueda);
+            resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+            limpiar();
+        }
+        else
+        {
+            resultadoLista = "Llene correctamante los campos requeridos";
+        }
+    }
+
+    void AgregarDespuesDato()
+    {
+        if (!nombre.Equals("") && id != 0)
+        {
+            resultadoLista = lista.AgregarDespuesDatox(new Persona(id, nombre), idBusqueda);
+            resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+            limpiar();
+        }
+        else
+        {
+            resultadoLista = "Llene correctamante los campos requeridos";
+        }
+    }
+
+
+    void DatoEspecifico()
+    {
+        if (!nombre.Equals("") && id != 0)
+        {
+            resultadoLista = lista.AgregarEnDatoX(new Persona(id, nombre), idBusqueda);
+            resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+            limpiar();
+        }
+        else
+        {
+            resultadoLista = "Llene correctamante los campos requeridos";
+        }
+    }
+
+    void eliminarInicio()
+    {
+        resultadoLista = lista.EliminarAlinicio();
+        resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+    }
+
+    void eliminarFinal()
+    {
+        resultadoLista = lista.EliminarAlFinal();
+        resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+    }
+
+    void eliminarAntesDato()
+    {
+        resultadoLista = lista.EliminarAntesDatX(idBusqueda);
+        resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+    }
+
+    void eliminarDespuesDato()
+    {
+        resultadoLista = lista.EliminarDespuesDatX(idBusqueda);
+        resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+        limpiar();
+    }
+
+    void eliminarDato()
+    {
+        resultadoLista = lista.EliminarDatoX(idBusqueda);
+        resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+        limpiar();
+    }
+
+    void eliminarAntesPosicion()
+    {
+        resultadoLista = lista.EliminarAntesdePosicionX(posicion);
+        resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+        limpiar();
+    }
+
+    void eliminarDespuesPosicion()
+    {
+        resultadoLista = lista.EliminarDespuesdePosicionX(posicion);
+        resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+        limpiar();
+    }
+
+    void eliminarPosicion()
+    {
+        resultadoLista = lista.EliminarPosicionX(posicion);
+        resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+        limpiar();
+    }
+
+    void ordenamiento()
+    {
+        resultadoLista = lista.OrdenarLista();
+        resultado = lista.RecorrerLista(lista.PrimerNodo, 1).Split('|');
+    }
+
+    void Busqueda()
+    {
+        resultadoLista = lista.BusquedaElemento(idBusqueda);
+    }
+
+    void limpiar()
+    {
+        id = 0;
+        nombre = "";
+    }
+}

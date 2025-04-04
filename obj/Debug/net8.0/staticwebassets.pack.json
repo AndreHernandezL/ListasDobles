@@ -1,0 +1,45 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\ESCRITORIO\\ListasDobles\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ListasDoblementeEnlazadas.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ListasDoblementeEnlazadas.29lohfvy8m.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\ESCRITORIO\\ListasDobles\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "D:\\ESCRITORIO\\ListasDobles\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\ESCRITORIO\\ListasDobles\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\ESCRITORIO\\ListasDobles\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ListasDoblementeEnlazadas.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ListasDoblementeEnlazadas.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ListasDoblementeEnlazadas.props",
+      "PackagePath": "build\\ListasDoblementeEnlazadas.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ListasDoblementeEnlazadas.props",
+      "PackagePath": "buildMultiTargeting\\ListasDoblementeEnlazadas.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ListasDoblementeEnlazadas.props",
+      "PackagePath": "buildTransitive\\ListasDoblementeEnlazadas.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -16,7 +16,7 @@
         {
             return PrimerNodo == null ? true : false;
         }
-        public string AgregarAlinicio(object dato)
+        public string AgregarAlinicio(Persona dato)
         {
             NuevoNodo = new Nodo(dato);
             if (EstaVacia())
@@ -32,7 +32,7 @@
             TotalNodos++;
             return "Nodo ingresado al inicio de la lista";
         }
-        public string AgregarAlFinal(object dato)
+        public string AgregarAlFinal(Persona dato)
         {
             NuevoNodo = new Nodo(dato);
             if (EstaVacia())
@@ -49,7 +49,7 @@
             return "Nodo ingresado al final de la lista";
         }
 
-        public string AgregarAntesDatox(object Nuevodato, object DatoObjetivo)
+        public string AgregarAntesDatox(Persona Nuevodato, int id)
         {
             if (EstaVacia())
             {
@@ -60,7 +60,8 @@
                 Nodo NodActual = PrimerNodo;
                 while (NodActual != null)
                 {
-                    if (NodActual.informacion.Equals(DatoObjetivo))
+                    Persona informacion = NodActual.informacion;
+                    if (informacion.getId() == id)
                     {
                         if (NodActual == PrimerNodo)
                         {
@@ -74,7 +75,7 @@
                             NodActual.NodoAnt.NodoSig = NuevoNodo;
                             NodActual.NodoAnt = NuevoNodo;
                             TotalNodos++;
-                            return $"Nodo ingresado antes de {DatoObjetivo} en la lista";
+                            return $"Nodo ingresado antes del ID {id} en la lista";
                         }
                     }
                     NodActual = NodActual.NodoSig;
@@ -82,7 +83,7 @@
                 return "No se econtro el elemnto en la lista";
             }
         }
-        public string AgregarDespuesDatox(object Nuevodato, object DatoObjetivo)
+        public string AgregarDespuesDatox(Persona Nuevodato, int id)
         {
             if (EstaVacia())
             {
@@ -93,7 +94,9 @@
                 Nodo NodActual = PrimerNodo;
                 while (NodActual != null)
                 {
-                    if (NodActual.informacion.Equals(DatoObjetivo))
+                    Persona informacion = NodActual.informacion;
+
+                    if (informacion.getId() == id)
                     {
                         if (NodActual == UltimoNodo)
                         {
@@ -108,7 +111,7 @@
                             NodActual.NodoSig = NuevoNodo;
                             TotalNodos++;
                         }
-                        return $"Nodo ingresado despues de {DatoObjetivo} en la lista";
+                        return $"Nodo ingresado despues del ID {id} en la lista";
                     }
                     NodActual = NodActual.NodoSig;
                 }
@@ -116,7 +119,46 @@
             }
         }
 
-        public string AregarAntesPosX(object Nuevodato, int poscion)
+        public string AgregarEnDatoX(Persona Nuevodato, int id)
+        {
+            if (EstaVacia())
+            {
+                return "No hay elementos en la lista";
+            }
+            else
+            {
+                Nodo NodActual = PrimerNodo;
+                while (NodActual != null)
+                {
+                    Persona informacion = NodActual.informacion;
+                    if (informacion.getId() == id)
+                    {
+                        if (NodActual == PrimerNodo)
+                        {
+                            AgregarAlinicio(Nuevodato);
+
+                        }else if (NodActual == UltimoNodo)
+                        {
+                            AgregarAlFinal(Nuevodato);
+                        }
+                        else
+                        {
+                            NuevoNodo = new Nodo(Nuevodato);
+                            NuevoNodo.NodoAnt = NodActual.NodoAnt;
+                            NuevoNodo.NodoSig = NodActual;
+                            NodActual.NodoAnt.NodoSig = NuevoNodo;
+                            NodActual.NodoAnt = NuevoNodo;
+                            TotalNodos++;
+                            return $"Nodo ingresado en el lugar del ID {id} en la lista";
+                        }
+                    }
+                    NodActual = NodActual.NodoSig;
+                }
+                return "No se econtro el elemnto en la lista";
+            }
+        }
+
+        public string AregarAntesPosX(Persona Nuevodato, int poscion)
         {
             if (poscion > TotalNodos)
             {
@@ -149,6 +191,91 @@
                     NodActual = NodActual.NodoSig;
                 }
                 return $"Nodo ingresado antes de la {poscion} en la lista";
+            }
+        }
+
+        public string AregarDespuesPosX(Persona Nuevodato, int poscion)
+        {
+            if (poscion > TotalNodos)
+            {
+                return "Poscision ingresada no valida";
+            }
+            else
+            {
+                int contador = 1;
+                Nodo NodActual = PrimerNodo;
+
+                while (NodActual != null)
+                {
+                    if (contador == poscion)
+                    {
+                        if (contador == TotalNodos)
+                        {
+                            AgregarAlFinal(Nuevodato);
+                        }
+                        else
+                        {
+                            NuevoNodo = new Nodo(Nuevodato);
+
+                            NuevoNodo.NodoAnt = NodActual;
+                            NuevoNodo.NodoSig = NodActual.NodoSig;
+                            NodActual.NodoSig.NodoAnt = NuevoNodo;
+                            NodActual.NodoSig = NuevoNodo;
+
+                            TotalNodos++;
+
+                        }
+                        break;
+                    }
+
+                    contador++;
+                    NodActual = NodActual.NodoSig;
+                }
+                return $"Nodo ingresado despues de la {poscion} en la lista";
+            }
+        }
+
+        public string AregarEnPosX(Persona Nuevodato, int poscion)
+        {
+
+            if (poscion > TotalNodos || poscion < 1)
+            {
+                return "Poscision ingresada no valida";
+            }
+            else
+            {
+                int contador = 1;
+                Nodo NodActual = PrimerNodo;
+
+                while (NodActual != null)
+                {
+                    if (contador == poscion)
+                    {
+                        if (contador == TotalNodos)
+                        {
+                            AgregarAlFinal(Nuevodato);
+                        }
+                        else if (contador == 1)
+                        {
+                            AgregarAlinicio(Nuevodato);
+                        }
+                        else
+                        {
+                            NuevoNodo = new Nodo(Nuevodato);
+                            NuevoNodo.NodoAnt = NodActual.NodoAnt;
+                            NuevoNodo.NodoSig = NodActual;
+                            NodActual.NodoAnt.NodoSig = NuevoNodo;
+                            NodActual.NodoAnt = NuevoNodo;
+                            TotalNodos++;
+
+                        }
+                        break;
+                    }
+
+                    contador++;
+                    NodActual = NodActual.NodoSig;
+                }
+                return $"Nodo ingresado en la {poscion} en la lista";
             }
         }
 
@@ -196,18 +323,19 @@
             return "Nodo eliminado al final de la lista";
         }
 
-        public string EliminarInformacionX(object dato)
+        public string EliminarDatoX(int id)
         {
             if (EstaVacia())
             {
-                return "LA LISTA ESTA VACIA";
+                return "La lista esta vacia";
             }
             else
             {
                 Nodo NodoAcutal = PrimerNodo;
                 while (NodoAcutal != null)
                 {
-                    if (NodoAcutal.informacion.Equals(dato))
+                    Persona informacion = NodoAcutal.informacion;
+                    if (informacion.getId() == id)
                     {
                         if (NodoAcutal == PrimerNodo)
                         {
@@ -225,15 +353,58 @@
                             eliminado = null;
                             TotalNodos--;
                         }
-                        return "DATO FUE ELIMINADO CON EXITO";
+                        return "Dato eliminado";
                     }
                     NodoAcutal = NodoAcutal.NodoSig;
                 }
             }
-            return "LO SIENTO DATO NO FUE ENCONTRADO";
+            return "Dato no encontrado";
         }
 
-        public string EliminarDespuesDatX(object DatoObjetivo)
+        public string EliminarPosicionX(int posicion)
+        {
+            int contador = 1;
+            if (EstaVacia())
+            {
+                return "La lista esta vacia";
+            }
+            else if (posicion > TotalNodos && posicion < 1)
+            {
+                return "Poscision ingresada no valida";
+            }
+            else {
+
+                Nodo NodoAcutal = PrimerNodo;
+                while (NodoAcutal != null)
+                {
+                    if (contador == posicion)
+                    {
+                        if (NodoAcutal == PrimerNodo)
+                        {
+                            EliminarAlinicio();
+                        }
+                        else if (NodoAcutal == UltimoNodo)
+                        {
+                            EliminarAlFinal();
+                        }
+                        else
+                        {
+                            Nodo eliminado = NodoAcutal;
+                            NodoAcutal.NodoSig.NodoAnt = NodoAcutal.NodoAnt;
+                            NodoAcutal.NodoAnt.NodoSig = NodoAcutal.NodoSig;
+                            eliminado = null;
+                            TotalNodos--;
+                        }
+                        return "Posicion eliminada";
+                    }
+                    NodoAcutal = NodoAcutal.NodoSig;
+                    contador++;
+                }
+            }
+            return "Posicion no encontrada";
+        }
+
+        public string EliminarDespuesDatX(int id)
         {
             if (EstaVacia())
             {
@@ -244,7 +415,8 @@
                 Nodo NodActual = PrimerNodo;
                 while (NodActual != null)
                 {
-                    if (NodActual.informacion.Equals(DatoObjetivo))
+                    Persona informacion = NodActual.informacion;
+                    if (informacion.getId() == id)
                     {
                         if (NodActual == UltimoNodo)
                         {
@@ -262,7 +434,7 @@
                             NodoAuxiliar = null;
                             TotalNodos--;
                         }
-                        return $"Nodo eliminado despues del elemento: {DatoObjetivo} en la lista";
+                        return $"Nodo eliminado despues del ID: {id} en la lista";
                     }
                     NodActual = NodActual.NodoSig;
                 }
@@ -270,7 +442,7 @@
             }
         }
 
-        public string EliminarAntesDatX(object DatoObjetivo)
+        public string EliminarAntesDatX(int id)
         {
             if (EstaVacia())
             {
@@ -281,7 +453,8 @@
                 Nodo NodActual = PrimerNodo;
                 while (NodActual != null)
                 {
-                    if (NodActual.informacion.Equals(DatoObjetivo))
+                    Persona informacion = NodActual.informacion;
+                    if (informacion.getId() == id)
                     {
                         if (NodActual == PrimerNodo)
                         {
@@ -299,7 +472,7 @@
                             NodoAuxiliar = null;
                             TotalNodos--;
                         }
-                        return $"Nodo eliminado antes del elemento: {DatoObjetivo} en la lista";
+                        return $"Nodo eliminado antes del ID: {id} en la lista";
                     }
                     NodActual = NodActual.NodoSig;
                 }
@@ -403,10 +576,12 @@
                 {
                     while (NodoSiguiente != null)
                     {
-                        if (Convert.ToInt32(NodoActual.informacion) >
-                        Convert.ToInt32(NodoSiguiente.informacion))
+                        Persona Actual = NodoActual.informacion;
+                        Persona Siguiente = NodoSiguiente.informacion;
+
+                        if (Actual.getId() > Siguiente.getId())
                         {
-                            object Auxiliar = NodoSiguiente.informacion;
+                            Persona Auxiliar = NodoSiguiente.informacion;
                             NodoSiguiente.informacion = NodoActual.informacion;
                             NodoActual.informacion = Auxiliar;
                         }
@@ -419,7 +594,7 @@
             }
         }
 
-        public string BusquedaElemento(object Dato)
+        public string BusquedaElemento(int Dato)
         {
             if (EstaVacia())
             {
@@ -434,9 +609,9 @@
                 Nodo NodoActual = PrimerNodo;
                 while (NodoActual != null)
                 {
-                    if (NodoActual.informacion.Equals(Dato))
+                    if (NodoActual.informacion.getId() == Dato)
                     {
-                        return $"Dato: [{Dato}] encontrado";
+                        return $"Dato: ({NodoActual.informacion.getId()}) → {NodoActual.informacion.getNombre()} encontrado";
                     }
                     NodoActual = NodoActual.NodoSig;
                 }
@@ -448,11 +623,13 @@
         {
             if (NodoActual == null)
             {
-                return " null";
+                return "";
             }
             else
             {
-                return $"[({contador++}).-{NodoActual.ToString()}]\n ↑↓\n{RecorrerLista(NodoActual.NodoSig, contador)}";
+                Persona informacion = NodoActual.informacion;
+                return $"({contador++}) → [{informacion.getId()}]: {informacion.getNombre()} | {RecorrerLista(NodoActual.NodoSig, contador)}";
             }
         }
+    }
 }
